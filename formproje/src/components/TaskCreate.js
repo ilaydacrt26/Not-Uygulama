@@ -1,7 +1,10 @@
 import {useState} from 'react';
+import { useContext } from "react";
+import TasksContext from "../context/task";
 
-function TaskCreate({onCreate, task, taskFormUpdate, onUpdate}) {
+function TaskCreate({task, taskFormUpdate, onUpdate}) {
 
+    const {editTaskById, createTask} = useContext(TasksContext);
     const [title, setTitle] = useState(task ? task.title : '');
     const [taskDesk, setTaskDesk] = useState(task ? task.taskDesk : '');
 
@@ -18,7 +21,7 @@ function TaskCreate({onCreate, task, taskFormUpdate, onUpdate}) {
         if(taskFormUpdate){
             onUpdate(task.id, title, taskDesk);
         }else{
-            onCreate(title, taskDesk); // App.js de bulunan fonksiyona girilen bilgileri kaydetmek için gönderiyoruz.
+            createTask(title, taskDesk); // App.js de bulunan fonksiyona girilen bilgileri kaydetmek için gönderiyoruz.
         }
         setTitle(''); // bilgiler girildikten sonra enter a tıklanıp bilgileri kaydetme işlemi tamamlandıktan sonra temiz bir input gelmesi için 
         setTaskDesk(''); // bilgiler girildikten sonra enter a tıklanıp bilgileri kaydetme işlemi tamamlandıktan sonra temiz bir textarea gelmesi için 
